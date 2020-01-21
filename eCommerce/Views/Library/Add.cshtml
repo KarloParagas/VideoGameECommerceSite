@@ -1,0 +1,41 @@
+﻿@model VideoGame
+
+@{
+    ViewData["Title"] = "Add a new game";
+}
+
+<div class="text-center">
+    <h1>Add a new game</h1>
+</div>
+
+<div class="text-center">
+    <form method="post">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" />
+        <span asp-validation-for="Title"></span>
+        <br />
+
+        <label asp-for="Rating"></label>
+        <input asp-for="Rating" />
+        <span asp-validation-for="Rating"></span>
+        <br />
+
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
+        <br />
+
+        <label asp-for="Price"></label>
+        <input asp-for="Price" />
+        <span asp-validation-for="Price"></span>
+        <br />
+    </form>
+
+    <input type="submit" value="Add Game" />
+</div>
+
+@* 
+    Add reference to jquery validation which does client validation    
+*@
+<partial name="_ValidationScriptsPartial" />
+
