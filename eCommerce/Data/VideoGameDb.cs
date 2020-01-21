@@ -16,11 +16,13 @@ namespace eCommerce.Data
         /// </summary>
         /// <param name="g">The game to add</param>
         /// <param name="context">The DB context to use</param>
-        public static VideoGame Add(VideoGame g, GameContext context) 
+        public static async Task<VideoGame> AddAsync(VideoGame g, GameContext context) 
         {
-            context.Add(g);
-            context.SaveChanges();
+            await context.AddAsync(g);
+            await context.SaveChangesAsync();
             return g;
-        } 
+        }
+
+        //https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-2.0#asynchronous-code
     }
 }
