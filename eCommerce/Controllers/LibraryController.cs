@@ -29,12 +29,12 @@ namespace eCommerce.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(VideoGame game) 
+        public async Task<IActionResult> Add(VideoGame game) 
         {
             if (ModelState.IsValid)
             {
                 //Add to database
-                VideoGameDb.Add(game, _context);
+                await VideoGameDb.AddAsync(game, _context);
 
                 return RedirectToAction("Index");
             }
