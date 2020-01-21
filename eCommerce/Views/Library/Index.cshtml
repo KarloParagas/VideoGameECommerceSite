@@ -6,7 +6,37 @@
 
 <h1>Browse Game Library</h1>
 
-<a asp-action="Add" asp-controller="Library">
-    Add Game
-</a>
+<p>
+    <a asp-action="Add" asp-controller="Library">
+        Add Game
+    </a>
+</p>
+
+<table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Id)</th>
+            <th>@Html.DisplayNameFor(m => m.Title)</th>
+            <th>@Html.DisplayNameFor(m => m.Rating)</th>
+            <th>@Html.DisplayNameFor(m => m.Description)</th>
+            <th>@Html.DisplayNameFor(m => m.Price)</th>
+            <th>Links</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (VideoGame g in Model) 
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => g.Id)</td>
+                <td>@Html.DisplayFor(m => g.Title)</td>
+                <td>@Html.DisplayFor(m => g.Rating)</td>
+                <td>@Html.DisplayFor(m => g.Description)</td>
+                <td>@Html.DisplayFor(m => g.Price)</td>
+                <td>
+                    <a asp-action="Update">Edit</a> | <a asp-action="Delete">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
