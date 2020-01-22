@@ -24,6 +24,21 @@ namespace eCommerce.Data
             return g;
         }
 
+        /// <summary>
+        /// Returns the total number of pages needed to have <paramref name="pageSize"/> amount of products per page
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="pageSize"></param>
+        /// <returns></returns>
+        public static async Task<int> GetTotalPages(GameContext context, int pageSize)
+        {
+            int totalNumGames = await context.VideoGames.CountAsync();
+
+            //Partial number of pages
+            double pages = (double)totalNumGames / pageSize;
+            return (int)Math.Ceiling(pages);
+        }
+
         //https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-2.0#asynchronous-code
 
         /// <summary>
