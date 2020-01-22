@@ -78,5 +78,25 @@ namespace eCommerce.Data
 
             return g;
         }
+
+        /// <summary>
+        /// Returns 1 page worth of products. Products are sorted alphabetically by Title.
+        /// </summary>
+        /// <param name="context">The database context</param>
+        /// <param name="pageNum">The page number for the products</param>
+        /// <param name="pageSize">The number of products per page</param>
+        public static async Task<List<VideoGame>> GetGamesByPage(GameContext context, int pageNum, int pageSize) 
+        {
+
+            //Make sure to call skip BEFORE take
+            //Make sure orderby comes first
+            List<VideoGame> games = await context.VideoGames
+                                                 .OrderBy(vg => vg.Title) //Orders by title
+                                                 .Skip((pageNum - 1) * pageSize) //Skips the pages needed to get to the desired page
+                                                 .Take(pageSize) //Takes the products desired
+                                                 .ToListAsync(); //Converts it to a list                                                 
+
+            return games;
+        }
     }
 }
