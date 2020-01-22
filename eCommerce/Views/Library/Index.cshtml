@@ -33,7 +33,7 @@
                 <td>@Html.DisplayFor(m => g.Description)</td>
                 <td>@Html.DisplayFor(m => g.Price)</td>
                 <td>
-                    <a asp-action="Update">Edit</a> | <a asp-action="Delete">Delete</a>
+                    <a asp-action="Update" asp-route-id="@g.Id">Edit</a> | <a asp-action="Delete" asp-route-id="@g.Id">Delete</a>
                 </td>
             </tr>
         }
