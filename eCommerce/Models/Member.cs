@@ -51,4 +51,18 @@ namespace eCommerce.Models
         //[Range(typeof(DateTime, DateTime.Today.AddYears(-120).ToShortDateString(), DateTime.Today.ToShortDateString()))]
         public DateTime DateOfBirth { get; set; }
     }
+
+    /// <summary>
+    /// ViewModel for the login page
+    /// </summary>
+    public class LoginViewModel 
+    {
+        [Required]
+        [Display(Name = "Username or Email")]
+        public string UsernameOrEmail { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+    }
 }
