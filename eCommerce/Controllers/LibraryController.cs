@@ -14,14 +14,25 @@ namespace eCommerce.Controllers
 
         public LibraryController(GameContext context) 
         {
-            _context = context;
+            _context = context; //This is the database to use
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            List<VideoGame> allGames = await VideoGameDb.GetAllGames(_context);
-            return View(allGames);
+            //Null-coalescing operator
+            //id is the page number coming in
+            int page = id ?? 1; //if the id is not null, it sets page to it. If it's null, use 1.
+            const int PAGE_SIZE = 3;
+
+            List<VideoGame> games = await VideoGameDb.GetGamesByPage(_context, page, PAGE_SIZE);
+
+            int totalPages = await VideoGameDb.GetTotalPages(_context, PAGE_SIZE);
+
+            ViewData["Pages"] = totalPages;
+            ViewData["CurrentPage"] = page;
+
+            return View(games);
         }
 
         [HttpGet]
