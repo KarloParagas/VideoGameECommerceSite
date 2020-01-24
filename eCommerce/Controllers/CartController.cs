@@ -40,5 +40,12 @@ namespace eCommerce.Controllers
 
             return RedirectToAction("Index", "Library");
         }
+
+        public IActionResult Checkout() 
+        {
+            //Get all the games out of the shopping cart/cookie, and display it on the web page
+            List<VideoGame> games = CartHelper.GetGames(_httpAccessor);
+            return View(games);
+        }
     }
 }

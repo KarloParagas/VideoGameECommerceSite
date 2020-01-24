@@ -9,6 +9,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] | Murt Backlin Gaming</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-sketchy.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -41,7 +44,7 @@
                                 Hello @SessionHelper.GetUsername(sessionData)
                             </li>
                         }
-                        else 
+                        else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Register"> | Register |</a>
@@ -56,6 +59,21 @@
         </nav>
     </header>
     <div class="container">
+        <a class="text-dark" asp-action="Checkout" asp-controller="Cart">
+            <span class="fa fa-shopping-cart">
+                @{
+                    int gameTotal = CartHelper.GetGameCount(sessionData);
+                 }
+                 @if (gameTotal == 0) //If there are no games in the cart
+                 {
+                    <text>Empty</text>
+                 }
+                 else 
+                 {
+                    @gameTotal
+                 }
+            </span>
+        </a>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
