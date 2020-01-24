@@ -76,5 +76,12 @@ namespace eCommerce.Controllers
             }
             return View(model);
         }
+
+        public IActionResult Logout() 
+        {
+            _httpAccessor.HttpContext.Session.Clear();
+            TempData["Message"] = "You have been logged out";
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
