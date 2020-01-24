@@ -32,13 +32,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Library" asp-action="Index"> | Library |</a>
                         </li>
-                        @if (sessionData.HttpContext.Session.GetInt32("MemberId").HasValue)
+                        @if (SessionHelper.IsUserLoggedIn(sessionData))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout"> | Logout |</a>
                             </li>
                             <li>
-                                Hello @sessionData.HttpContext.Session.GetString("Username")
+                                Hello @SessionHelper.GetUsername(sessionData)
                             </li>
                         }
                         else 
