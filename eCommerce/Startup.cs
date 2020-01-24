@@ -25,6 +25,15 @@ namespace eCommerce
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Configure Session Management
+            services.AddHttpContextAccessor();
+            services.AddDistributedMemoryCache(); //Stores session in-memory
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); //This is how long a user can be idle for in their session, before timeout
+                options.Cookie.IsEssential = true;
+            });
+
             string connection = Configuration.GetConnectionString("GameDbConnection");
 
             //Register DB Context
@@ -35,12 +44,6 @@ namespace eCommerce
             );
 
             services.AddControllersWithViews();
-        }
-
-        //Instead of writing the anonymous function (lambda expression) for the DbContext above, you could code a normal function
-        private void ConfigureMyDbContext(DbContextOptionsBuilder options) 
-        {
-            options.UseSqlServer("con string");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,6 +65,8 @@ namespace eCommerce
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession(); //Use configured session
 
             app.UseEndpoints(endpoints =>
             {

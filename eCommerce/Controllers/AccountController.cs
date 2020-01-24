@@ -4,18 +4,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using eCommerce.Data;
 using eCommerce.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eCommerce.Controllers
 {
     public class AccountController : Controller
     {
+        /// <summary>
+        /// Provides access to session data for the current user
+        /// </summary>
+        private readonly IHttpContextAccessor _httpAccessor;
+
         private readonly GameContext _context;
 
         //Add constructor with DB context as a parameter
-        public AccountController(GameContext context)
+        public AccountController(GameContext context, IHttpContextAccessor accessor)
         {
             _context = context;
+            _httpAccessor = accessor;
         }
 
         [HttpGet]
@@ -50,10 +57,15 @@ namespace eCommerce.Controllers
         {
             if (ModelState.IsValid) 
             {
-                bool isMember = await MemberDb.IsLoginValid(model, _context);
-                if (isMember)
+                Member member = await MemberDb.IsLoginValid(model, _context);
+                if (member != null)
                 {
                     TempData["Message"] = "Logged in successfully";
+
+                    //Create session for user (Set session data)
+                    _httpAccessor.HttpContext.Session.SetInt32("MemberId", member.MemberId);
+                    _httpAccessor.HttpContext.Session.SetString("Username", member.Username);
+
                     return RedirectToAction("Index", "Home");
                 }
                 else //Credentials invalid
