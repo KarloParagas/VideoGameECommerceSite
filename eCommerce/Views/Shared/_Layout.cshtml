@@ -43,8 +43,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout"> | Logout |</a>
                             </li>
-                            <li>
-                                Hello @SessionHelper.GetUsername(sessionData)
+                            <li class="nav-item">
+                                <span class="nav-link text-dark">
+                                    Hello @SessionHelper.GetUsername(sessionData)
+                                </span>                               
                             </li>
                         }
                         else
