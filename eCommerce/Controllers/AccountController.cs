@@ -36,6 +36,23 @@ namespace eCommerce.Controllers
         {
             if (ModelState.IsValid) 
             {
+                bool isEmailAndUsernameAvailable = true;
+
+                if (await MemberDb.IsEmailTaken(_context, m.EmailAddress)) 
+                {
+                    isEmailAndUsernameAvailable = false;
+                    ModelState.AddModelError(string.Empty, "Email address is taken");
+                }
+                if (await MemberDb.IsUsernameTaken(_context, m.Username)) 
+                {
+                    isEmailAndUsernameAvailable = false;
+                    ModelState.AddModelError(string.Empty, "Username is taken");
+                }
+                if (!isEmailAndUsernameAvailable) 
+                {
+                    return View(m);
+                }
+
                 //Add member to database
                 await MemberDb.Add(_context, m);
 
