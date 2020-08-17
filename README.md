@@ -1,4 +1,6 @@
 # Video Game eCommerce Website
+![VideoGameECommerceScreenshot](https://user-images.githubusercontent.com/49321258/90430763-dc9c0380-e07c-11ea-8b79-9c2f1135574c.png)
+
 In this eCommerce website, you'll be able to register and log in to your personal account. You can also check out the current 
 catalog of tiny clothes and accessories for your pets and have the opportunity to purchase them. Admins will also soon be 
 able to add more clothes, as well as edit and delete existing products.
